@@ -99,7 +99,7 @@ public class TicketServiceImpl implements TicketService {
 		this.holdTimeMins = holdTimeMins;
 	}
 	
-	public void releaseSeatHoldAndPutBack(SeatHold seatHold){
+	public synchronized void releaseSeatHoldAndPutBack(SeatHold seatHold){
 		System.out.println("releaseSeatHoldAndPutBack the hold for " + seatHold.getSeatHoldId() +
 					"\n booked by : " + seatHold.getCustomer().getEmail());
 		
