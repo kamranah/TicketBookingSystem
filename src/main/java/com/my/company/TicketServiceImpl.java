@@ -29,8 +29,7 @@ public class TicketServiceImpl implements TicketService {
 	private Map<String, SeatHold> seatsBookedMap= new HashMap<String, SeatHold>();
 	private int holdTimeMins = 30;
 	private Queue<Seat> seatPriorityQueue;
-	private final ScheduledExecutorService seatHoldScheduler =
-			     Executors.newScheduledThreadPool(5);
+	private final ScheduledExecutorService seatHoldScheduler;
 
 
 
@@ -70,7 +69,9 @@ public class TicketServiceImpl implements TicketService {
 	public TicketServiceImpl(int rows, int numOfSeatsInEachRow){
 		this.totalNumOfSeats = rows * numOfSeatsInEachRow;
 		seatPriorityQueue = new PriorityQueue<>(totalNumOfSeats, seatComparator);
-				
+		seatHoldScheduler =
+			     Executors.newScheduledThreadPool(totalNumOfSeats);
+
 		int seatPriority=1;
 		for(int i=0; i<rows; i++){
 			for(int j=0; j<numOfSeatsInEachRow; j++){
